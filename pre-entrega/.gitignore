@@ -1,0 +1,19 @@
+# Archivos compilados
+*.class
+
+# Logs
+*.log
+
+# Carpeta de build Maven
+target/
+
+# Carpeta de build Gradle
+build/
+
+# Configuración IDE
+.idea/
+.vscode/
+*.iml
+
+# Archivos del sistema
+.DS_Store
