@@ -7,7 +7,7 @@ import com.techlab.articulo.interfaces.Identificable;
 
 public class Repositorio<T extends Identificable> {
 
-    private ArrayList<T> lista = new ArrayList<>();
+    private  ArrayList<T> lista = new ArrayList<>();
 
     //Agregar
     public boolean agregar(T obj){
@@ -45,7 +45,7 @@ public class Repositorio<T extends Identificable> {
         return lista.remove(obj);
     }
 
-    //Verifica que la lista este vacia
+    //Verifica que la lista este vaci
     public boolean estaVacio(){
         if(lista.isEmpty()){
             return true;

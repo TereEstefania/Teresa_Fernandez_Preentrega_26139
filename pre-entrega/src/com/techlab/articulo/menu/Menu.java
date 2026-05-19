@@ -3,10 +3,10 @@ package com.techlab.articulo.menu;
 import java.util.Scanner;
 
 public abstract class Menu {
-    protected Scanner scn;
+    protected Scanner scanner;
 
     public Menu(Scanner scanner){
-        this.scn = scanner;
+        this.scanner = scanner;
     }
 
     public abstract void mostrarMenu();
@@ -17,4 +17,11 @@ public abstract class Menu {
         return 0;
     };
 
+    public int leerEnteroNoNegativo(){
+        return 0;
+    }
+
+    public double leerDoubleNoNegativo(){
+        return 0;
+    }
 }
