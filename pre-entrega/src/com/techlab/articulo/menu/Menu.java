@@ -13,15 +13,15 @@ public abstract class Menu {
 
     public abstract void ejecutar();
 
-    public int leerEntero(Scanner scanner, String mensaje){
+    public static int leerEntero(Scanner scanner, String mensaje){
         return 0;
     };
 
-    public int leerEnteroNoNegativo(){
+    public static int leerEnteroNoNegativo(){
         return 0;
     }
 
-    public double leerDoubleNoNegativo(){
+    public static double leerDoubleNoNegativo(){
         return 0;
     }
 }

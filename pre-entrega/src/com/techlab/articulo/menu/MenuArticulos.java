@@ -1,9 +1,16 @@
 package com.techlab.articulo.menu;
 
+import com.techlab.articulo.model.*;
+import com.techlab.articulo.repository.Repositorio;
+
 public class MenuArticulos extends Menu {
-    
-    public MenuArticulos(java.util.Scanner scanner){
+    private Repositorio<Articulo> repositorioArticulos;
+    private Repositorio<Categoria> repositorioCategorias;
+
+    public MenuArticulos(java.util.Scanner scanner, Repositorio<Articulo> repositorioArticulos, Repositorio<Categoria> repositorioCategorias){
         super(scanner);
+        this.repositorioArticulos = repositorioArticulos;
+        this.repositorioCategorias = repositorioCategorias;
     }
 
     @Override
