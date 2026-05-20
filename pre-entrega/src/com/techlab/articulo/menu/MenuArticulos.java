@@ -1,5 +1,8 @@
 package com.techlab.articulo.menu;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import com.techlab.articulo.model.*;
 import com.techlab.articulo.repository.Repositorio;
 
@@ -35,10 +38,10 @@ public class MenuArticulos extends Menu {
 
             switch (opcion) {
                 case 1:
-                    ingresarArticulo();
+                    ingresarArticulo(scanner, repositorioArticulos, repositorioCategorias);
                     break;
                 case 2:
-                    listarArticulos();
+                    listarArticulos(repositorioArticulos);
                     break;
                 case 3:
                     consultarArticulo();
@@ -59,13 +62,46 @@ public class MenuArticulos extends Menu {
         }while(opcion != 0);
     }
 
+    //Metodo para la seleccion de el submenu de articulos
+    public static int eleccionTipoArticulo(Scanner scanner){
+
+        System.out.println("1 - Artículo electrónico");
+        System.out.println("2 - Artículo alimenticio");
+        System.out.println("0 - Volver al menú Articulos");
+
+        int tipo;
+        do{
+            tipo = leerEntero(scanner, "Seleccione el tipo de artículo: ");
+            if(tipo == 0){
+                return -1;
+            }
+
+            if (tipo != 1 && tipo != 2) {
+                System.out.println("Error: debe elegir 1 o 2.");
+            }
+        }while(tipo != 1 && tipo != 2);
+
+        return tipo;
+    }
+    
+
     //Ingresar
-    public static void ingresarArticulo(){
+    public static void ingresarArticulo(Scanner scanner, Repositorio<Articulo> articulos, Repositorio<Categoria> categorias){
+
+        System.out.println("====== INGRESAR ARTÍCULO ======");
+        int tipo = eleccionTipoArticulo(scanner);
+
+        //si tipo es -1 vuelve al menu principal
+        if(tipo == -1){
+            return;
+        }
+
+        
 
     }
 
     //Listar
-    public static void listarArticulos(){
+    public static void listarArticulos(Repositorio<Articulo> articulos){
 
     }
 
