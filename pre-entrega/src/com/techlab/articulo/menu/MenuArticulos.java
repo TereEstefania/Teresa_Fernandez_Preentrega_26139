@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.techlab.articulo.model.*;
 import com.techlab.articulo.repository.Repositorio;
+import com.techlab.articulo.utils.Secuencias;
 
 public class MenuArticulos extends Menu {
     private Repositorio<Articulo> repositorioArticulos;
@@ -95,8 +96,17 @@ public class MenuArticulos extends Menu {
         if(tipo == -1){
             return;
         }
-
         
+        int codigo = Secuencias.generarCodigoArticulo();
+
+        if(articulos.buscarPorCodigo(codigo) != null){
+            System.out.println("Ya existe un artículo con ese código XD");
+            return;
+        }
+
+        String nombre = leerTextoNoVacio(scanner, "Ingrese el nombre del articulo: ");
+        
+
 
     }
 
