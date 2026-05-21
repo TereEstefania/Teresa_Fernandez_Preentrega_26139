@@ -1,5 +1,6 @@
 package com.techlab.articulo.menu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import com.techlab.articulo.utils.*;
 
@@ -43,8 +44,8 @@ public abstract class Menu {
                     System.out.print(mensaje);
                     double valor = Double.parseDouble(scanner.nextLine());
 
-                    if(valor < 0){
-                        System.out.println("El precio no puede ser negatipo.");
+                    if(Validaciones.validarNoNegativo(valor)){
+                        System.out.println("El precio no puede ser negativo.");
                         continue;
                     }
                     return valor;
@@ -53,5 +54,21 @@ public abstract class Menu {
                 }
             }
        }
+    
+
+    public static String leerTextoNoVacio(Scanner scanner, String mensaje){
+        while(true){
+            System.out.println(mensaje);
+            String texto = scanner.nextLine();
+
+            if(Validaciones.validarTextoNoVacio(texto)){               
+                return texto.trim();                
+            }
+            
+            System.out.println("El texto no puede estar vacío :(");         
+        }
+
     }
 
+
+}

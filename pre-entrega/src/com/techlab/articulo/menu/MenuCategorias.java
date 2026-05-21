@@ -1,17 +1,20 @@
 package com.techlab.articulo.menu;
 
-import com.techlab.articulo.model.Articulo;
+import java.util.Scanner;
+
+//import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
+import com.techlab.articulo.utils.Secuencias;
 
 public class MenuCategorias extends Menu{
 
-        private Repositorio<Articulo> repositorioArticulos;
+      //  private Repositorio<Articulo> repositorioArticulos;
         private Repositorio<Categoria> repositorioCategorias;
 
-    public MenuCategorias(java.util.Scanner scanner, Repositorio<Articulo> repositorioArticulos, Repositorio<Categoria> repositorioCategorias){
+    public MenuCategorias(java.util.Scanner scanner,  Repositorio<Categoria> repositorioCategorias){
         super(scanner);
-        this.repositorioArticulos = repositorioArticulos;
+       // this.repositorioArticulos = repositorioArticulos;
         this.repositorioCategorias = repositorioCategorias;
     }
 
@@ -37,7 +40,7 @@ public class MenuCategorias extends Menu{
 
            switch (opcion) {
                 case 1:
-                    ingresarCategoria();
+                    ingresarCategoria(scanner, repositorioCategorias);
                     break;
                 case 2:
                     listarCategorias();
@@ -61,13 +64,35 @@ public class MenuCategorias extends Menu{
     }
 
     //Agregar
-    public static void ingresarCategoria(){
+    public static void ingresarCategoria(Scanner scanner, Repositorio<Categoria> categorias){
+        System.out.println("\n ==== INGRESAR CATEGORIA ====");
+        
+        String nombre = leerTextoNoVacio(scanner, "Ingrese un nombre para la categoria");
+        // if(categorias.estaVacio()){
+        //     //Primero buscao por nombre para no tener que generar un codigo sin necesidad
+        //     if(categorias.buscarPorNombre(nombre) != null){
+        //         System.out.println("Esa categoria ya existe! XD");
+        //         return;
+        //     }           
+        // }
+        //generar el codigo para la categoria
+        int codigo = Secuencias.generarCodigoCategoria();
+ 
+        String descripcion = leerTextoNoVacio(scanner, "Ingrese la descripcion de la categoria");
+
+        Categoria categoriaNueva = new Categoria(codigo, nombre, descripcion);
+
+        if(categorias.agregar(categoriaNueva)){
+            System.out.println("CATEGORIA AGREGADA! :D");
+        }else{
+            System.out.println("Se produjo un error, intente nuevamente! XP");
+        }
 
     }
     
     //Listar
     public static void listarCategorias(){
-
+        
     }
 
     //consultar
@@ -84,4 +109,6 @@ public class MenuCategorias extends Menu{
     public static void eliminarCategoria(){
 
     }
+
+  
 }

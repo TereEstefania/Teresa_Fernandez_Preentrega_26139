@@ -22,6 +22,7 @@ public class Categoria implements Identificable {
         this.codigo = codigo;
     }
 
+    @Override
     public String getNombre(){
         return nombre;
     }

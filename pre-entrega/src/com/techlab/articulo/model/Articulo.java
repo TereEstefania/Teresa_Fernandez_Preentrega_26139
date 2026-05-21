@@ -18,6 +18,7 @@ public abstract class Articulo implements Calculable, Identificable {
     }
 
     //getters y setters
+    @Override
     public int getCodigo(){
         return codigo;
     }
@@ -26,6 +27,7 @@ public abstract class Articulo implements Calculable, Identificable {
         this.codigo = codigo;
     }
 
+    @Override
     public String getNombre(){
         return nombre;
     }

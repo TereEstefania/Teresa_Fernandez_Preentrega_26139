@@ -17,7 +17,7 @@ public class App {
         Repositorio<Categoria> repositorioCategoria = new Repositorio<>();
 
         MenuArticulos menuArticulos = new MenuArticulos(scanner, repositorioArticulo, repositorioCategoria);
-        MenuCategorias menuCategoria = new MenuCategorias(scanner, repositorioArticulo, repositorioCategoria);
+        MenuCategorias menuCategoria = new MenuCategorias(scanner, repositorioCategoria);
 
         int opcion;
 

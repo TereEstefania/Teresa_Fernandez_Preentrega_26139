@@ -37,6 +37,16 @@ public class Repositorio<T extends Identificable> {
         return null;
     }
 
+    //Buscar en la lista por nombre
+    public T buscarPorNombre(String nombre){
+        for (T obj : lista) {
+            if(obj.getNombre().equals(obj.getNombre())){
+                return obj;
+            }       
+        }
+        return null;
+    }
+
     //elimina un objeto y retorna true si es que se elimino
     public boolean eliminar(T obj){
         if(obj == null){
@@ -45,7 +55,7 @@ public class Repositorio<T extends Identificable> {
         return lista.remove(obj);
     }
 
-    //Verifica que la lista este vaci
+    //Verifica que la lista este vacio
     public boolean estaVacio(){
         if(lista.isEmpty()){
             return true;

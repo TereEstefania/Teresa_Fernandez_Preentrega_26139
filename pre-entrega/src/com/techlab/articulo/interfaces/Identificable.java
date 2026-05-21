@@ -2,5 +2,7 @@ package com.techlab.articulo.interfaces;
 
 public interface Identificable {
         
-        int getCodigo();    
+        int getCodigo();
+        
+        String getNombre();
 } 
