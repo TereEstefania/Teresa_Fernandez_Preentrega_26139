@@ -69,13 +69,13 @@ public class MenuCategorias extends Menu{
         System.out.println("\n ==== INGRESAR CATEGORIA ====");
         
         String nombre = leerTextoNoVacio(scanner, "Ingrese un nombre para la categoria");
-        if(categorias.estaVacio()){
-            //Primero buscao por nombre para no tener que generar un codigo sin necesidad
-            if(categorias.buscarPorNombre(nombre) != null){
-                System.out.println("Esa categoria ya existe! XD");
-                return;
-            }           
-        }
+        
+        //Primero buscao por nombre para no tener que generar un codigo sin necesidad
+        if(categorias.buscarPorNombre(nombre) != null){
+            System.out.println("Esa categoria ya existe! XD");
+            return;
+        }           
+        
         //generar el codigo para la categoria
         int codigo = Secuencias.generarCodigoCategoria();
  

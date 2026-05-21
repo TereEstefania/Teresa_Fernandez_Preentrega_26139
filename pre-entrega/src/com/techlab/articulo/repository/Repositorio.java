@@ -40,7 +40,7 @@ public class Repositorio<T extends Identificable> {
     //Buscar en la lista por nombre
     public T buscarPorNombre(String nombre){
         for (T obj : lista) {
-            if(obj.getNombre().equals(obj.getNombre())){
+            if(obj.getNombre().equalsIgnoreCase(nombre)){
                 return obj;
             }       
         }
