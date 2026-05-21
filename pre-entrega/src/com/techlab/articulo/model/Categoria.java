@@ -44,7 +44,8 @@ public class Categoria implements Identificable {
         return "Categoria {" +
                 "código=" + codigo +
                 ", nombre='" + nombre + '\'' +
-                ", descripción='" + descripcion + '\'' + "}";
+                ", descripción='" + descripcion + '\'' + 
+                "}";
     }
     
 }

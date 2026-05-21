@@ -20,13 +20,14 @@ public class MenuCategorias extends Menu{
 
     @Override
     public void mostrarMenu(){
-        System.out.println("\n**** MENÚ CATEGORÍAS ****");
+        System.out.println("\n************ MENÚ CATEGORÍAS ***********");
         System.out.println("1 - Ingresar categoría");
         System.out.println("2 - Listar categorías");
         System.out.println("3 - Consultar categoría");
         System.out.println("4 - Modificar categoría");
         System.out.println("5 - Eliminar categoría");
         System.out.println("0 - Volver");
+        System.out.println("******************************************");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class MenuCategorias extends Menu{
                     ingresarCategoria(scanner, repositorioCategorias);
                     break;
                 case 2:
-                    listarCategorias();
+                    listarCategorias(repositorioCategorias);
                     break;
                 case 3:
                     consultarCategoria();
@@ -68,13 +69,13 @@ public class MenuCategorias extends Menu{
         System.out.println("\n ==== INGRESAR CATEGORIA ====");
         
         String nombre = leerTextoNoVacio(scanner, "Ingrese un nombre para la categoria");
-        // if(categorias.estaVacio()){
-        //     //Primero buscao por nombre para no tener que generar un codigo sin necesidad
-        //     if(categorias.buscarPorNombre(nombre) != null){
-        //         System.out.println("Esa categoria ya existe! XD");
-        //         return;
-        //     }           
-        // }
+        if(categorias.estaVacio()){
+            //Primero buscao por nombre para no tener que generar un codigo sin necesidad
+            if(categorias.buscarPorNombre(nombre) != null){
+                System.out.println("Esa categoria ya existe! XD");
+                return;
+            }           
+        }
         //generar el codigo para la categoria
         int codigo = Secuencias.generarCodigoCategoria();
  
@@ -91,8 +92,18 @@ public class MenuCategorias extends Menu{
     }
     
     //Listar
-    public static void listarCategorias(){
-        
+    public static void listarCategorias(Repositorio<Categoria> categorias){
+        System.out.println("==== LISTA DE CATEGORIAS ====");
+
+        if(categorias.estaVacio()){
+            System.out.println("La lista de Categorias esta vacia! :O");
+            return;
+        }
+
+        for (Categoria categoria : categorias.listar()) {
+            System.out.println(categoria.toString());
+        }
+  
     }
 
     //consultar
