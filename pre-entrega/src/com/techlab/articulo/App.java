@@ -31,11 +31,9 @@ public class App {
 
             switch (opcion) {
                 case 1:        
-                    menuArticulos.mostrarMenu();
                     menuArticulos.ejecutar();
                     break;
                 case 2:
-                    menuCategoria.mostrarMenu();
                     menuCategoria.ejecutar();
                     break;
                 case 0:
