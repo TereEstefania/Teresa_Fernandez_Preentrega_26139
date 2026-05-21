@@ -2,6 +2,7 @@ package com.techlab.articulo.menu;
 
 import java.util.Scanner;
 
+import com.techlab.articulo.model.Articulo;
 //import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
@@ -47,7 +48,7 @@ public class MenuCategorias extends Menu{
                     listarCategorias(repositorioCategorias);
                     break;
                 case 3:
-                    consultarCategoria();
+                    consultarCategoria(scanner, repositorioCategorias);
                     break;
                 case 4:
                     modificarCategoria();
@@ -107,8 +108,17 @@ public class MenuCategorias extends Menu{
     }
 
     //consultar
-    public static void consultarCategoria(){
-
+    public static void consultarCategoria(Scanner scanner, Repositorio<Categoria> categorias){
+        System.out.println("\n===============  CONSULTAR CATEGORIA  ==================");
+                if(categorias.estaVacio()){
+                    System.out.println("No hay artículos cargados :(");
+                    return;
+                }
+                int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+                
+                Categoria categoria = categorias.buscarPorCodigo(codigo);
+                System.out.println("Artículo encontrado:");
+                System.out.println(categoria);
     }
 
     //Modificar

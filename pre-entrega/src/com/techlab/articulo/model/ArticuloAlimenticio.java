@@ -57,8 +57,7 @@ public class ArticuloAlimenticio extends Articulo {
 
     @Override
     public double calcularPrecioFinal() {
-        // TODO:
-        // Implementar lógica propia del artículo electrónico.
-        return 0;
+        //precio bruto mas IVA      
+        return precio * 1.21;
     }
 }

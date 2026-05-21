@@ -45,7 +45,7 @@ public class MenuArticulos extends Menu {
                     listarArticulos(repositorioArticulos);
                     break;
                 case 3:
-                    consultarArticulo();
+                    consultarArticulo(scanner,repositorioArticulos);
                     break;
                 case 4:
                     modificarArticulo();
@@ -158,8 +158,18 @@ public class MenuArticulos extends Menu {
     }
 
     //Consultar
-    public static void consultarArticulo(){
-
+    public static void consultarArticulo(Scanner scanner, Repositorio<Articulo> articulos){
+        System.out.println("\n===============  CONSULTAR ARTÍCULO ==================");
+        if(articulos.estaVacio()){
+            System.out.println("No hay artículos cargados :(");
+            return;
+        }
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        
+        Articulo articulo = articulos.buscarPorCodigo(codigo);
+        System.out.println("Artículo encontrado:");
+        System.out.println(articulo);
+     
     }
 
     //Modificar
