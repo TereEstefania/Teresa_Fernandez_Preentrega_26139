@@ -13,6 +13,8 @@ public class Categoria implements Identificable {
         this.descripcion = descripcion;
     }
 
+    public Categoria(){}
+
     @Override
     public int getCodigo(){
         return codigo;

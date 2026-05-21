@@ -93,7 +93,7 @@ public class MenuCategorias extends Menu{
     
     //Listar
     public static void listarCategorias(Repositorio<Categoria> categorias){
-        System.out.println("==== LISTA DE CATEGORIAS ====");
+        System.out.println("\n========= LISTA DE CATEGORIAS ==========");
 
         if(categorias.estaVacio()){
             System.out.println("La lista de Categorias esta vacia! :O");
@@ -103,7 +103,7 @@ public class MenuCategorias extends Menu{
         for (Categoria categoria : categorias.listar()) {
             System.out.println(categoria.toString());
         }
-  
+        System.out.println("\n========================================");
     }
 
     //consultar

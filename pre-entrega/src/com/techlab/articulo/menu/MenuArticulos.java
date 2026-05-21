@@ -84,6 +84,21 @@ public class MenuArticulos extends Menu {
 
         return tipo;
     }
+
+    //Metodo pedir categoria
+      public static Categoria pedirCategoriaExistente(Scanner scanner,Repositorio<Categoria> categorias) {
+        while (true) {
+            int codigoCategoria = leerEntero(scanner, "Ingrese el código de la categoría: ");
+            Categoria categoria = categorias.buscarPorCodigo(codigoCategoria);
+
+            if (categoria != null) {
+                return categoria;
+            }
+
+            System.out.println("La categoría no existe.");
+        }
+    }
+
     
 
     //Ingresar
@@ -96,23 +111,50 @@ public class MenuArticulos extends Menu {
         if(tipo == -1){
             return;
         }
-        
-        int codigo = Secuencias.generarCodigoArticulo();
 
-        if(articulos.buscarPorCodigo(codigo) != null){
-            System.out.println("Ya existe un artículo con ese código XD");
+        String nombre = leerTextoNoVacio(scanner, "Ingrese el nombre del articulo: ");
+
+        if(articulos.buscarPorNombre(nombre) != null){
+            System.out.println("Ya existe un artículo con ese nombre XD");
             return;
         }
 
-        String nombre = leerTextoNoVacio(scanner, "Ingrese el nombre del articulo: ");
-        
+        int codigo = Secuencias.generarCodigoArticulo();
+        double precio = leerDoubleNoNegativo(scanner, "Ingrese el precio del aticulo: ");
 
+        Categoria categoria = new Categoria();
+        categoria = pedirCategoriaExistente(scanner, categorias);
+
+        Articulo articulo;
+
+        if(tipo == 1){
+            int garantiaMeses = leerEnteroNoNegativo(scanner, "Ingrese la garantía en meses: ");
+            articulo = new ArticuloElectronico(codigo, nombre, precio, categoria, garantiaMeses);
+        } else{
+            int diasParaVencimiento = leerEnteroNoNegativo(scanner, "Ingrese los días para vencimiento: ");
+            articulo = new ArticuloAlimenticio(codigo, nombre, precio, categoria, diasParaVencimiento);
+        }
+
+         if(articulos.agregar(articulo)){
+            System.out.println("ARTÍCULO AGREGADO! :D");
+        }else{
+            System.out.println("Se produjo un error, intente nuevamente! XP");
+        }
 
     }
 
     //Listar
     public static void listarArticulos(Repositorio<Articulo> articulos){
+        System.out.println("\n============ LISTADO DE ARTÍCULOS ===============");
+        if(articulos.estaVacio()){
+            System.out.println("La lista de Categorias esta vacia! :O");
+            return;
+        }
 
+        for (Articulo articulo : articulos.listar()) {
+            System.out.println(articulo.toString());
+        }
+        System.out.println("\n========================================");
     }
 
     //Consultar

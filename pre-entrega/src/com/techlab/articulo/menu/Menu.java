@@ -1,6 +1,5 @@
 package com.techlab.articulo.menu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import com.techlab.articulo.utils.*;
 
