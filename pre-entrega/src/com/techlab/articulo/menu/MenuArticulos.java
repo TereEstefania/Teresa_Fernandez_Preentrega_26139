@@ -1,6 +1,5 @@
 package com.techlab.articulo.menu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.techlab.articulo.model.*;
@@ -51,7 +50,7 @@ public class MenuArticulos extends Menu {
                     modificarArticulo(scanner, repositorioArticulos, repositorioCategorias);
                     break;
                 case 5:
-                    eliminarArticulo();
+                    eliminarArticulo(scanner, repositorioArticulos);
                     break;
                 case 0:
                    System.out.println("Saliendo del menú de artículos :)");
@@ -181,8 +180,29 @@ public class MenuArticulos extends Menu {
     }
 
     //Eliminar
-    public static void eliminarArticulo(){
+    public static void eliminarArticulo(Scanner scanner, Repositorio<Articulo> articulos){
+        System.out.println("\n=============== ELIMINAR ARTÍCULO ================");
+        
+        if(articulos.estaVacio()){
+            System.out.println("No hay artículos cargados :(");
+            return;
+        }
 
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a eliminar: ");
+        
+        Articulo articulo = articulos.buscarPorCodigo(codigo);
+        if(articulo == null){
+            System.out.println("Ese articulo no existe :(");
+        }
+
+         if(articulos.eliminar(articulo)){
+             System.out.println("El articulo se ha eliminado correctamente! :D");
+             System.out.println("\n===================================================");
+          }else{
+            System.out.println("Ocurrio un error, no se pudo eliminar el artículo! :(");
+            System.out.println("\n===================================================");
+          }
+        
     }
 
     //Metodo para la seleccion de el submenu de articulos

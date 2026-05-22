@@ -163,7 +163,7 @@ public class MenuCategorias extends Menu{
                 return;
         }
 
-        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        int codigo = leerEntero(scanner, "Ingrese el codigo de la categoria a eliminar: ");
         
         Categoria categoria = categorias.buscarPorCodigo(codigo);
         
@@ -176,13 +176,14 @@ public class MenuCategorias extends Menu{
             System.out.println("Existen productos de esta categoria, no es posible su eliminacion! XP");
             return;
         } 
-          if(categorias.eliminar(categoria)){
-             System.out.println("La categoria se ha eliminado correctamente! :D");
-             System.out.println("\n===================================================");
-          }else{
-            System.out.println("Ocurrio un error, no se pudo eliminar la categoria! :(");
+        
+        if(categorias.eliminar(categoria)){
+            System.out.println("La categoria se ha eliminado correctamente! :D");
             System.out.println("\n===================================================");
-          }
+        }else{
+        System.out.println("Ocurrio un error, no se pudo eliminar la categoria! :(");
+        System.out.println("\n===================================================");
+        }
 
 
     }
