@@ -1,6 +1,5 @@
 package com.techlab.articulo.utils;
 
-import java.util.ArrayList;
 
 public final class Validaciones {
     

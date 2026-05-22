@@ -3,19 +3,18 @@ package com.techlab.articulo.menu;
 import java.util.Scanner;
 
 import com.techlab.articulo.model.Articulo;
-//import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
 import com.techlab.articulo.utils.Secuencias;
 
 public class MenuCategorias extends Menu{
 
-      //  private Repositorio<Articulo> repositorioArticulos;
+        private Repositorio<Articulo> repositorioArticulos;
         private Repositorio<Categoria> repositorioCategorias;
 
-    public MenuCategorias(java.util.Scanner scanner,  Repositorio<Categoria> repositorioCategorias){
+    public MenuCategorias(java.util.Scanner scanner, Repositorio<Articulo> repositorioArticulos, Repositorio<Categoria> repositorioCategorias){
         super(scanner);
-       // this.repositorioArticulos = repositorioArticulos;
+        this.repositorioArticulos = repositorioArticulos;
         this.repositorioCategorias = repositorioCategorias;
     }
 
@@ -51,10 +50,10 @@ public class MenuCategorias extends Menu{
                     consultarCategoria(scanner, repositorioCategorias);
                     break;
                 case 4:
-                    modificarCategoria();
+                    modificarCategoria(scanner, repositorioCategorias);
                     break;
                 case 5:
-                    eliminarCategoria();
+                    eliminarCategoria(scanner, repositorioArticulos, repositorioCategorias);
                     break;
                 case 0:
                    System.out.println("Saliendo del menú de categorias :)");
@@ -110,25 +109,92 @@ public class MenuCategorias extends Menu{
     //consultar
     public static void consultarCategoria(Scanner scanner, Repositorio<Categoria> categorias){
         System.out.println("\n===============  CONSULTAR CATEGORIA  ==================");
-                if(categorias.estaVacio()){
-                    System.out.println("No hay artículos cargados :(");
-                    return;
-                }
-                int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
-                
-                Categoria categoria = categorias.buscarPorCodigo(codigo);
-                System.out.println("Artículo encontrado:");
-                System.out.println(categoria);
+        if(categorias.estaVacio()){
+            System.out.println("No hay artículos cargados :(");
+            return;
+        }
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        
+        Categoria categoria = categorias.buscarPorCodigo(codigo);
+        
+        if(categoria == null){
+            System.out.println("Esa categoria no existe! :(");
+            return;
+        }
+
+        System.out.println("Categoria encontrada:");
+        System.out.println(categoria);
     }
 
     //Modificar
-    public static void modificarCategoria(){
+    public static void modificarCategoria(Scanner scanner, Repositorio<Categoria> categorias){
+        System.out.println("\n===============  MODIFICAR CATEGORIA  ==================");
+        if(categorias.estaVacio()){
+                System.out.println("No hay artículos cargados :(");
+                return;
+        }
 
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        
+        Categoria categoria = categorias.buscarPorCodigo(codigo);
+        
+        if(categoria == null){
+            System.out.println("Esa categoria no existe! :(");
+            return;
+        }
+
+        String nuevoNombre = leerTextoNoVacio(scanner, "Ingrese el nuevo nombre de la categoria: ");
+        String nuevaDescripcion = leerTextoNoVacio(scanner, "INgrese la nueva descripcion: ");
+
+        categoria.setNombre(nuevoNombre);
+        categoria.setDescripcion(nuevaDescripcion);
+
+        System.out.println("Categoria modificada correctamente :)");
+        System.out.println(categoria);
     }
 
     //Eliminar
-    public static void eliminarCategoria(){
+    public static void eliminarCategoria(Scanner scanner,Repositorio<Articulo> articulos, Repositorio<Categoria> categorias){
 
+        System.out.println("\n============== ELIMINAR CATEGORIA =================");
+
+        if(categorias.estaVacio()){
+                System.out.println("No hay artículos cargados :(");
+                return;
+        }
+
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        
+        Categoria categoria = categorias.buscarPorCodigo(codigo);
+        
+        if(categoria == null){
+            System.out.println("Esa categoria no existe! :(");
+            return;
+        }
+
+        if(buscarCategoriaEnArticulo(categoria, articulos)){
+            System.out.println("Existen productos de esta categoria, no es posible su eliminacion! XP");
+            return;
+        } 
+          if(categorias.eliminar(categoria)){
+             System.out.println("La categoria se ha eliminado correctamente! :D");
+             System.out.println("\n===================================================");
+          }else{
+            System.out.println("Ocurrio un error, no se pudo eliminar la categoria! :(");
+            System.out.println("\n===================================================");
+          }
+
+
+    }
+
+    //metodo para verificar si una categoria existe en un articulo
+    public static boolean buscarCategoriaEnArticulo(Categoria categoria, Repositorio<Articulo> articulos){
+        for (Articulo articulo : articulos.listar()) {
+            if (articulo.getCategoria().getCodigo() == categoria.getCodigo()) {
+                return true;
+            }
+        }
+        return false;
     }
 
   

@@ -48,7 +48,7 @@ public class MenuArticulos extends Menu {
                     consultarArticulo(scanner,repositorioArticulos);
                     break;
                 case 4:
-                    modificarArticulo();
+                    modificarArticulo(scanner, repositorioArticulos, repositorioCategorias);
                     break;
                 case 5:
                     eliminarArticulo();
@@ -63,43 +63,7 @@ public class MenuArticulos extends Menu {
         }while(opcion != 0);
     }
 
-    //Metodo para la seleccion de el submenu de articulos
-    public static int eleccionTipoArticulo(Scanner scanner){
 
-        System.out.println("1 - Artículo electrónico");
-        System.out.println("2 - Artículo alimenticio");
-        System.out.println("0 - Volver al menú Articulos");
-
-        int tipo;
-        do{
-            tipo = leerEntero(scanner, "Seleccione el tipo de artículo: ");
-            if(tipo == 0){
-                return -1;
-            }
-
-            if (tipo != 1 && tipo != 2) {
-                System.out.println("Error: debe elegir 1 o 2.");
-            }
-        }while(tipo != 1 && tipo != 2);
-
-        return tipo;
-    }
-
-    //Metodo pedir categoria
-      public static Categoria pedirCategoriaExistente(Scanner scanner,Repositorio<Categoria> categorias) {
-        while (true) {
-            int codigoCategoria = leerEntero(scanner, "Ingrese el código de la categoría: ");
-            Categoria categoria = categorias.buscarPorCodigo(codigoCategoria);
-
-            if (categoria != null) {
-                return categoria;
-            }
-
-            System.out.println("La categoría no existe.");
-        }
-    }
-
-    
 
     //Ingresar
     public static void ingresarArticulo(Scanner scanner, Repositorio<Articulo> articulos, Repositorio<Categoria> categorias){
@@ -167,18 +131,95 @@ public class MenuArticulos extends Menu {
         int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
         
         Articulo articulo = articulos.buscarPorCodigo(codigo);
-        System.out.println("Artículo encontrado:");
-        System.out.println(articulo);
-     
+        
+        if(articulo == null){
+            System.out.println("Ese articulo no existe :(");
+        }
+            System.out.println("Artículo encontrado:");
+            System.out.println(articulo);
     }
 
     //Modificar
-    public static void modificarArticulo(){
+    public static void modificarArticulo(Scanner scanner, Repositorio<Articulo> articulos, Repositorio<Categoria> categorias){
+        System.out.println("================ MODIFICAR ARTÍCULO ================");
 
+        if(articulos.estaVacio()){
+            System.out.println("No hay artículos cargados :(");
+            return;
+        }
+        int codigo = leerEntero(scanner, "Ingrese el codigo del articulo a consultar");
+        
+        Articulo articulo = articulos.buscarPorCodigo(codigo);
+        if(articulo == null){
+            System.out.println("Ese articulo no existe :(");
+        }
+
+        String nombreNuevo = leerTextoNoVacio(scanner, "Ingrese el nuevo nombre del articulo");
+        double precioNuevo = leerDoubleNoNegativo(scanner, "Ingrese el nuevo precio: ");
+
+        Categoria categoriaNueva = new Categoria();
+        categoriaNueva = pedirCategoriaExistente(scanner, categorias);
+
+        articulo.setNombre(nombreNuevo);
+        articulo.setPrecio(precioNuevo);
+        articulo.setCategoria(categoriaNueva);
+
+        if (articulo instanceof ArticuloElectronico) {
+            ArticuloElectronico electronico = (ArticuloElectronico) articulo;
+            int nuevaGarantia = leerEnteroNoNegativo(scanner, "Ingrese la nueva garantía en meses: ");
+            electronico.setGarantiaMeses(nuevaGarantia);
+        }
+
+        if (articulo instanceof ArticuloAlimenticio) {
+            ArticuloAlimenticio alimenticio = (ArticuloAlimenticio) articulo;
+            int nuevosDias = leerEnteroNoNegativo(scanner, "Ingrese los nuevos días para vencimiento: ");
+            alimenticio.setDiasParaVencimiento(nuevosDias);
+        }
+
+        System.out.println("Artículo modificado correctamente :)");
+        System.out.println(articulo);
     }
 
     //Eliminar
     public static void eliminarArticulo(){
 
     }
+
+    //Metodo para la seleccion de el submenu de articulos
+    public static int eleccionTipoArticulo(Scanner scanner){
+
+        System.out.println("1 - Artículo electrónico");
+        System.out.println("2 - Artículo alimenticio");
+        System.out.println("0 - Volver al menú Articulos");
+
+        int tipo;
+        do{
+            tipo = leerEntero(scanner, "Seleccione el tipo de artículo: ");
+            if(tipo == 0){
+                return -1;
+            }
+
+            if (tipo != 1 && tipo != 2) {
+                System.out.println("Error: debe elegir 1 o 2.");
+            }
+        }while(tipo != 1 && tipo != 2);
+
+        return tipo;
+    }
+
+    //Metodo pedir categoria
+    public static Categoria pedirCategoriaExistente(Scanner scanner,Repositorio<Categoria> categorias) {
+        while (true) {
+            int codigoCategoria = leerEntero(scanner, "Ingrese el código de la categoría: ");
+            Categoria categoria = categorias.buscarPorCodigo(codigoCategoria);
+
+            if (categoria != null) {
+                return categoria;
+            }
+
+            System.out.println("La categoría no existe.");
+        }
+    }
+
+    
 }
